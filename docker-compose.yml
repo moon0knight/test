@@ -1,0 +1,32 @@
+version: '3'
+services:
+  php-fpm:
+    build: 
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    depends_on:
+      - mysql
+    volumes:
+      - .:/var/www/html
+  nginx:
+    image: nginx
+    depends_on:
+      - php-fpm
+    ports:
+      - 8080:80
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: database
+      MYSQO_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
