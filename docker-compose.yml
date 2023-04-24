@@ -21,7 +21,7 @@ services:
     image: mysql
     environment:
       MYSQL_DATABASE: database
-      MYSQO_USER: user
+      MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
     ports:
